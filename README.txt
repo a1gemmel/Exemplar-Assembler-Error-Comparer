@@ -4,6 +4,8 @@ Made for use for CS241.
 
 This script makes testing less of a hassle, works similar to runSuite from CS246. It must be used in the school linux environment in order to access cs241.binasm
 
+NOTE: Not entirely useful for testing invalid input
+
 Usage:
 Create a text file with the names of all the .asm files you want to test (with the .asm)
 

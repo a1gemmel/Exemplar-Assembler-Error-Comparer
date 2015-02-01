@@ -2,7 +2,7 @@ Property of Andrew Gemmel
 
 Made for use for CS241.
 
-This script makes testing less of a hassle, works similar to runSuite from CS246. It must be used in the school linux environment in order to access cs241.binasm
+This script makes testing less of a hassle, works similar to runSuite from CS246. It must be used in the school linux environment in order to access cs241.binasm. I've been using all the assembly programs from a1 and a2 as test data for my assembler as a sanity check.
 
 NOTE: Not entirely useful for testing invalid input
 

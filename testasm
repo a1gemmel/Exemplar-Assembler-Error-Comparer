@@ -15,6 +15,7 @@ for var in `cat $2`
 do 
 	if [ -f "${var}" ]
 		then
+			echo "Assembling ${var}"
 			unset output
 			unset expect
 			unset error

@@ -1,0 +1,45 @@
+#!/bin/bash
+
+source /u/cs241/setup
+
+if [ $# -ne 2 ]; then
+	echo "Tester expects 2 arguments: testasm asm.rkt tests.txt"
+	exit 1
+fi
+
+ASM=$1
+TESTS=$2
+
+
+for var in `cat $2`
+do 
+	if [ -f "${var}" ]
+		then
+			unset output
+			unset expect
+			unset error
+			output=`mktemp -p /tmp`
+			expect=`mktemp -p /tmp`
+			
+			xxdoutput="${var}.out"
+			xxdexpect="${var}.expect"
+			error="${var}.error"
+			
+			java cs241.binasm < ${var} > ${expect}
+			if [ ${ASM} == "asm.rkt" ] 
+				then
+					racket asm.rkt < ${var} > ${output} 2> ${error}
+				else
+					./${ASM} < ${var} > ${output}
+			fi
+			
+			xxd -cols 4 ${output} > ${xxdoutput}
+			xxd -cols 4 ${expect} > ${xxdexpect}
+			
+			cmp  ${xxdoutput} ${xxdexpect}
+
+		else 
+			echo "Expected input file ${var}.in not found. Test aborted."
+	fi
+done	
+		

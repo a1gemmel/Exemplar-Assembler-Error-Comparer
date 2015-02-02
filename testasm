@@ -41,7 +41,7 @@ do
 			echo ""
 
 		else 
-			echo "Expected input file ${var}.in not found. Test aborted."
+			echo "Expected input file ${var} not found. Test aborted."
 	fi
 done	
 		

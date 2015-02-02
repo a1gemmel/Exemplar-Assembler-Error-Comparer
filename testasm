@@ -15,7 +15,7 @@ for var in `cat $2`
 do 
 	if [ -f "${var}" ]
 		then
-			echo "Assembling ${var}"
+			echo "= Assembling ${var} ="
 			unset output
 			unset expect
 			unset error
@@ -36,8 +36,9 @@ do
 			
 			xxd -cols 4 ${output} > ${xxdoutput}
 			xxd -cols 4 ${expect} > ${xxdexpect}
-			
+			echo -n "   "
 			cmp  ${xxdoutput} ${xxdexpect}
+			echo ""
 
 		else 
 			echo "Expected input file ${var}.in not found. Test aborted."

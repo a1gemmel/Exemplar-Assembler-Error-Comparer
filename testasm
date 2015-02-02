@@ -10,11 +10,21 @@ fi
 ASM=$1
 TESTS=$2
 
+mkdir -p testdata
+
+
 
 for var in `cat $2`
 do 
 	if [ -f "${var}" ]
 		then
+			if [ -e "${var}.out" ]; then
+				rm "${var}.out"
+			fi
+			if [ -e "${var}.expect" ]; then
+				rm "${var}.expect"
+			fi
+			
 			echo "= Assembling ${var} ="
 			unset output
 			unset expect
@@ -36,10 +46,17 @@ do
 			
 			xxd -cols 4 ${output} > ${xxdoutput}
 			xxd -cols 4 ${expect} > ${xxdexpect}
-			echo -n "   "
-			cmp  ${xxdoutput} ${xxdexpect}
-			echo ""
 
+			result=`cmp  ${xxdoutput} ${xxdexpect}`
+			if [ "${result}" == "" ]
+				then	
+					mv ${xxdoutput} "testdata/${xxdoutput}"
+					mv ${xxdexpect} "testdata/${xxdexpect}"
+					mv ${error} "testdata/${error}"
+			else
+				echo "   ${result}"
+			fi
+			
 		else 
 			echo "Expected input file ${var} not found. Test aborted."
 	fi

@@ -3,7 +3,7 @@
 source /u/cs241/setup
 
 if [ $# -ne 2 ]; then
-	echo "Tester expects 2 arguments: testasm asm.rkt tests.txt"
+	echo "Tester expects 2 arguments: testwlp4scan wlp4scan.rkt tests.txt"
 	exit 1
 fi
 
@@ -25,7 +25,7 @@ do
 				rm "${var}.expect"
 			fi
 			
-			echo "= Assembling ${var} ="
+			echo "= Scanning ${var} ="
 			unset output
 			unset expect
 			unset error
@@ -36,10 +36,10 @@ do
 			xxdexpect="${var}.expect"
 			error="${var}.error"
 			
-			java cs241.binasm < ${var} > ${expect}
+			wlp4scan < ${var} > ${expect}
 			if [ ${ASM} == "asm.rkt" ] 
 				then
-					racket asm.rkt < ${var} > ${output} 2> ${error}
+					racket wlp4scan.rkt < ${var} > ${output} 2> ${error}
 				else
 					./${ASM} < ${var} > ${output}
 			fi
